@@ -10,3 +10,13 @@ html:not(.dark) [data-layout-item="page-header"] .eyebrow,
 html:not(.dark) [data-layout-item="toc-item-link"][data-active="true"] {
   color: #B83D16;
 }
+
+/* Match the landing page's orange CTA and Asphalt label in both themes. */
+#topbar-cta-button a,
+#topbar-cta-button a * {
+  color: #252321;
+}
+#topbar-cta-button a:hover > span {
+  background-color: #F05A2B;
+  opacity: 1;
+}

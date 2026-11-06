@@ -6,7 +6,7 @@
   "colors": {
     "primary": "#FF6838",
     "light": "#FFD0B9",
-    "dark": "#B83D16"
+    "dark": "#FF6838"
   },
   "logo": {
     "light": "/images/logo-light.svg",

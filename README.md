@@ -14,7 +14,7 @@ Run `npx mint validate` and `npx mint broken-links` before publishing. The API p
 
 `npm run sync:openapi` can refresh the snapshot from the deployed `GET https://truckerfetch.com/api/v1/openapi.json`; use it only after the matching application release is live, inspect the diff, and run validation. Mintlify generates the API reference directly from the checked-in contract.
 
-The light and dark SVG logos and icon in `images/` are copies of the application's vector masters. Signal Orange is `#FF6838`; readable light-surface links use Oxide `#B83D16`, and dark surfaces use Asphalt `#252321`. Do not recolor the white truck or outlined wordmark. `styles.css` supplies accessible text variants without changing the signature logo.
+The light and dark SVG logos and icon in `images/` are copies of the application's vector masters. Signal Orange is `#FF6838`; readable light-surface links use Oxide `#B83D16`, and dark surfaces use Asphalt `#252321`. Do not recolor the white truck or outlined wordmark. `styles.css` supplies accessible text variants without changing the signature logo. Mintlify uses `colors.dark` for button fills in both themes, so it stays Signal Orange; the navbar CTA uses the landing page's Asphalt label and `#F05A2B` hover fill. Oxide is reserved for readable text links.
 
 ## Publishing
 
