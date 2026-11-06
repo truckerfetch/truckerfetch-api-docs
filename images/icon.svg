@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56" role="img" aria-labelledby="title">
+<title id="title">TruckerFetch</title>
+<path fill="#FF6838" d="M9 0h32.5q1.5 0 2.6 1.1l10.8 10.8q1.1 1.1 1.1 2.6V47a9 9 0 0 1-9 9H9a9 9 0 0 1-9-9V9a9 9 0 0 1 9-9z"/><g fill="#FFFFFF" transform="translate(4.45 5.35) scale(.76)"><path d="M7 11h36l-6 9H16l-3 5h20l-6 9H10l-3 5H1z"/>
+<path fill-rule="evenodd" d="M40 20h8l13 14v8h-6a8 8 0 0 0-15 0H23l6-8h3zM43 25l-4 8h14l-7-8z"/>
+<circle cx="14" cy="43" r="5.5"/><circle cx="47.5" cy="43" r="5.5"/></g>
+</svg>

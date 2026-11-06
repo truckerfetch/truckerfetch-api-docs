@@ -1,0 +1,29 @@
+---
+title: "TruckerFetch developer documentation"
+description: "Connect your systems and assistants to published U.S. motor carrier data, operating authorities, insurance evidence, exports and watch events."
+keywords: ["TruckerFetch", "API", "MCP", "carrier data"]
+---
+
+TruckerFetch gives you programmatic access to the published carrier research your Pro account can see in the dashboard. Use REST for application integrations, hosted MCP for an authorized assistant, and the agent skill for a repeatable research workflow.
+
+<Columns cols={3}>
+  <Card title="Make your first API call" icon="terminal" href="/quickstart">Create a scoped key and search the carrier catalog.</Card>
+  <Card title="Connect an assistant" icon="robot" href="/integrations/mcp">Authorize the hosted MCP endpoint with OAuth.</Card>
+  <Card title="Install the agent skill" icon="book" href="/integrations/agent-skills">Preserve source dates, evidence and owner approvals.</Card>
+</Columns>
+
+## Choose an interface
+
+| Interface | Entry point | Authentication |
+| --- | --- | --- |
+| REST API | `https://truckerfetch.com/api/v1` | Scoped API key in a bearer header |
+| Hosted MCP | `https://truckerfetch.com/api/mcp` | OAuth through your MCP client |
+| Agent skill | [Official skill repository](https://github.com/truckerfetch/truckerfetch-agent-skills) | Your configured REST or MCP credentials |
+
+All data API routes and hosted MCP operations require active Pro access and the appropriate scopes. Public documentation and the [OpenAPI contract](https://truckerfetch.com/api/v1/openapi.json) do not require a key.
+
+## Start with published evidence
+
+Carrier Census status, operating authority and observed insurance filings describe different facts. Keep their source dates and evidence with your results. A filing anniversary is not a verified policy expiration, and a first observation is not a newly formed business.
+
+Read [data quality](/data-quality) before using results for qualification or outreach. The API follows the same account permissions and suppressions as your dashboard.

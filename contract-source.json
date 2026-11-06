@@ -1,0 +1,15 @@
+{
+  "source": "truckerfetch-com",
+  "files": {
+    "lib/truckerfetch/interfaces.ts": "1c611da5757fc9df00dd63bd07cf362c63ea9a043df946dd0588207e16ec3191",
+    "lib/truckerfetch/policy.ts": "bf6432c1dbc843a872a4ebad6ac697b8eea90d885a8c0949a7d666f1b3197294",
+    "lib/truckerfetch/watch-policy.ts": "961e57d2e205e3bf0e1780106777932f64e59d5d7835b5e67ddd29610d799a73",
+    "lib/truckerfetch/watch-kinds.ts": "f7a7004c2f10a0b973a186d8786c0f66f67ded1c2bd778c7653a12144a999c9c",
+    "lib/utils/site.ts": "1b824a27fd1fb8769ab1c466a535655792dd18bd0d81bb23ce0a33e141c7149e",
+    "lib/truckerfetch/server.ts": "854e8176ce471623a032fda2a3b5128555900b29a56ed2387c42c9b7bceb5f54",
+    "lib/truckerfetch/watch.ts": "949358be8ac20d063776e5380faae978a8080ed1d3bd60439438af11b62a5284",
+    "lib/truckerfetch/changes.ts": "62017edbc40e8c33095259a38cabd83310273e56918389028bd9d6176b0b1ffc",
+    "lib/truckerfetch/export-files.ts": "5965982ae8c93e9a2c0ea4a3ff9feeefde08675e66116a1589a0b49d031660c7"
+  },
+  "note": "Generated public API contract and source hashes only; no customer records or private server code."
+}

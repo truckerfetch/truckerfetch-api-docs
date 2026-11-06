@@ -1,0 +1,7 @@
+/* Brand reference: Signal Orange fills, Oxide readable links, Asphalt text. */
+#content a:not(.card) { color: #B83D16; }
+#content a:not(.card):hover { color: #96300F; }
+#sidebar-content li[data-active] > a { color: #B83D16; }
+html.dark #content a:not(.card),
+html.dark #sidebar-content li[data-active] > a { color: #FFD0B9; }
+html.dark #content a:not(.card):hover { color: #FFFFFF; }

@@ -1,0 +1,44 @@
+---
+title: "Make your first TruckerFetch API call"
+description: "Create a scoped Pro API key, verify your account access and search a small carrier page while preserving source dates and pagination metadata."
+keywords: ["quickstart", "API key", "carrier search"]
+---
+
+TruckerFetch REST requests use your Pro account and a scoped API key. This quickstart reads account access, then searches a small catalog page without creating an export or opening historical dates.
+
+<Steps>
+  <Step title="Create a scoped key">
+    Sign in to [API keys](https://truckerfetch.com/dashboard/api/keys). Create a purpose-specific key with `data:read`. Add `contacts:read` only if your integration needs permitted contact fields. Copy the secret when it is shown and store it in your application's secret manager.
+  </Step>
+  <Step title="Set your local environment">
+    Provide the key outside source control. Do not paste a real key into shared prompts, issues, example files or URLs.
+
+    ```bash
+    export TRUCKERFETCH_API_KEY='your-api-key'
+    ```
+  </Step>
+  <Step title="Check account access">
+    ```bash
+    curl --fail-with-body --silent --show-error \
+      'https://truckerfetch.com/api/v1/account' \
+      -H "Authorization: Bearer $TRUCKERFETCH_API_KEY"
+    ```
+
+    A successful JSON response has `data` and `meta.request_id`. Save the request ID when troubleshooting.
+  </Step>
+  <Step title="Search carriers">
+    ```bash
+    curl --fail-with-body --silent --show-error \
+      'https://truckerfetch.com/api/v1/carriers/search' \
+      -H "Authorization: Bearer $TRUCKERFETCH_API_KEY" \
+      -H 'Content-Type: application/json' \
+      --data '{"filters":{"states":["TX"]},"limit":10}'
+    ```
+
+    Read the rows in `data` and the source metadata in `meta`. If the response includes `next_cursor`, send it with the same filters to request the next page. An empty page is a valid result.
+  </Step>
+</Steps>
+
+## Continue your integration
+
+Use [carrier search](/guides/carrier-search) for filters and cursor recovery. Use [exports](/guides/exports) when you need a pinned CSV rather than many interactive pages. See [errors](/errors) for `401`, `402`, `403` and retry behavior.

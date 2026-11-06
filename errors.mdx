@@ -1,0 +1,42 @@
+---
+title: "Recover from API errors and owner confirmations"
+description: "Interpret stable status codes, keep request IDs for support and recover ambiguous mutations with the original idempotency key and unchanged payload."
+keywords: ["errors", "retries", "confirmation", "idempotency"]
+---
+
+TruckerFetch returns a sanitized error code and message for failed API operations. Preserve the request ID and the operation you attempted when diagnosing a failure.
+
+A typical error envelope has this shape; values below are illustrative:
+
+```json
+{
+  "error": {"code": "insufficient_scope", "message": "insufficient scope"},
+  "requestId": "REQUEST_ID"
+}
+```
+
+The corresponding `X-Request-Id` response header identifies the request. Do not attach API keys, contact data or complete private response bodies to a public issue.
+
+| Status | Meaning and next step |
+| --- | --- |
+| `400` | Invalid inputs or unsupported selection. Check the generated request schema. |
+| `401` | Missing or invalid credential. Check the key or reconnect OAuth. |
+| `402` | Active Pro access is required. Review the owning account. |
+| `403` | Missing scope or allowance. Review the requested permission and current account access. |
+| `404` | Unknown or inaccessible resource. Check the ID and owner. |
+| `409` | Idempotency conflict, changed selection, job not ready or owner confirmation required. Inspect `error.code`. |
+| `410` | Expired cursor, artifact or historical edition. Start a fresh permitted workflow. |
+| `429` | Shared usage limit reached. Honor `Retry-After`. |
+| `503` | A required dependency or data capability is unavailable. Retry with backoff when appropriate. |
+
+## Complete owner confirmation
+
+A `409 confirmation_required` response includes `confirmation_url`, `confirmation_id` and `expires_at`. Open the returned TruckerFetch link while signed in as the owning account and review that exact request. After approval, repeat the same operation with the same idempotency key and payload. If the review expires, follow the product's new review flow.
+
+Historical-date opening uses this flow for external requests. Hosted MCP exports also require owner review. Never synthesize an approval or bypass it with another credential.
+
+## Recover ambiguous writes
+
+Save an idempotency key before creating a watchlist, following an authority, requesting an export or opening a historical date. Keep it with the validated payload. If the response is lost, retry identically or inspect the existing owned resource before starting another logical request.
+
+If the same key conflicts with changed arguments, restore the original request for recovery. Use a new key only for an intentionally new operation after resolving the previous outcome.

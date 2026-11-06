@@ -1,0 +1,29 @@
+---
+title: "Grant the permissions your integration needs"
+description: "Choose independent data, contact, insurance, watchlist, export, archive and webhook scopes for each TruckerFetch credential or assistant grant."
+keywords: ["scopes", "permissions", "least privilege"]
+---
+
+TruckerFetch scopes limit what a credential can read or change. Start with `data:read`, then add permissions for a specific workflow. Active Pro access is required in addition to the listed scopes.
+
+| Scope | Purpose |
+| --- | --- |
+| `data:read` | Published catalog and edition data, carrier profiles, operating authorities, evidence and changes. |
+| `contacts:read` | Permitted contact fields; also required for external export creation and downloads. |
+| `insurance:read` | Insurance filings, renewal research and insurance evidence. Availability also depends on published insurance data. |
+| `watchlists:read` | Your watchlists, resolved authority targets and matching events. |
+| `watchlists:write` | Create or change your watchlists, targets and rules. |
+| `exports:read` | Your export jobs, manifests and file parts. |
+| `exports:write` | Request a pinned export. |
+| `archive:unlock` | Request owner-approved access to a historical edition. Also requires `data:read`. |
+| `webhooks:read` | Read your webhook endpoints and delivery history. |
+
+## Compose permissions by workflow
+
+For basic carrier search, use `data:read`. Add `contacts:read` if you need permitted contact fields. Without it, restricted contact fields are omitted; an omitted field does not establish that the source value is unknown.
+
+For a catalog CSV, use `exports:write`, `exports:read` and `contacts:read`. A renewal export also requires `insurance:read`. Edition selections must remain accessible to the owner.
+
+For changes filtered to a watchlist, use `data:read` and `watchlists:read`. Insurance-related results remain subject to insurance permission and availability.
+
+Credential scopes do not replace [owner confirmation](/guides/editions) for historical access or [MCP export review](/guides/exports). Public developer credentials cannot manage keys, billing or webhook signing secrets.

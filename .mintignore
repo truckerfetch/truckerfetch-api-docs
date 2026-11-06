@@ -1,0 +1,10 @@
+README.md
+SECURITY.md
+LICENSE
+worker/
+scripts/
+.github/
+.mintlify/
+node_modules/
+package.json
+package-lock.json

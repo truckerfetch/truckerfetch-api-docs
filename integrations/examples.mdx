@@ -1,0 +1,26 @@
+---
+title: "Use the official API integration examples"
+description: "Start from small Python and JavaScript examples, configure scoped credentials outside source control and choose hosted MCP or a local bridge for agents."
+keywords: ["examples", "Python", "JavaScript", "repositories"]
+---
+
+TruckerFetch provides public examples and agent packages that use the same account permissions as the API. Choose the repository that matches your integration and read its README before running a command.
+
+| Repository | Use it for |
+| --- | --- |
+| [API examples](https://github.com/truckerfetch/truckerfetch-api-examples) | Small Python and JavaScript requests and reusable client helpers. |
+| [MCP](https://github.com/truckerfetch/truckerfetch-mcp) | Hosted OAuth connection instructions and a local stdio bridge. |
+| [Agent skills](https://github.com/truckerfetch/truckerfetch-agent-skills) | Portable research guidance and a bundled helper. |
+| [Documentation](https://github.com/truckerfetch/truckerfetch-api-docs) | This Mintlify site and its checked-in OpenAPI reference. |
+
+## Configure credentials
+
+Run REST examples with an appropriately scoped API key stored in a protected environment variable. The quickstart uses `TRUCKERFETCH_API_KEY`. Follow each repository's documented environment contract and keep real keys out of committed `.env` files, logs and issue reports.
+
+Use hosted MCP when your client supports the OAuth flow. Choose the local bridge when your environment expects stdio and you intend to authenticate through a REST key. Neither path changes the account's Pro entitlement, scopes or shared usage limits.
+
+## Keep examples safe to share
+
+Use synthetic records in issues and tests. Preserve the exact idempotency key and payload for an unfinished mutation; replace them with synthetic values before sharing a reproduction. Report only the request ID and sanitized error details when you need help.
+
+The repositories' code and documentation license does not grant rights to the licensed dataset or TruckerFetch brand assets. Review the applicable terms for your data workflow.

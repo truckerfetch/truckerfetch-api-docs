@@ -1,0 +1,4325 @@
+{
+  "openapi": "3.1.1",
+  "info": {
+    "title": "TruckerFetch Pro API",
+    "version": "1.0.0",
+    "description": "Owner-scoped carrier, authority and observed-insurance research. All data operations require active Pro. Additional scopes, historical grants, source availability and current suppressions apply. Source observation, effective dates, edition dates and renewal estimates represent distinct facts."
+  },
+  "servers": [
+    {
+      "url": "https://truckerfetch.com/api/v1"
+    }
+  ],
+  "paths": {
+    "/account": {
+      "get": {
+        "operationId": "getAccount",
+        "summary": "Get Account",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. This REST operation requires no additional field scope.",
+        "x-required-scopes": [],
+        "parameters": [],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      }
+    },
+    "/usage": {
+      "get": {
+        "operationId": "getUsage",
+        "summary": "Get Usage",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. This REST operation requires no additional field scope.",
+        "x-required-scopes": [],
+        "parameters": [],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      }
+    },
+    "/editions/latest": {
+      "get": {
+        "operationId": "getLatestEdition",
+        "summary": "Get Latest Edition",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. This REST operation requires no additional field scope. Returns the latest published edition with its original source date, which can be older during a source delay. May publish already-due daily editions using the server clock and queue normal opt-in notifications.",
+        "x-required-scopes": [],
+        "parameters": [],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      }
+    },
+    "/editions": {
+      "get": {
+        "operationId": "listEditions",
+        "summary": "List Editions",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. Required scopes: data:read. Lists published metadata in the rolling 90 Eastern calendar dates, plus the latest published edition during a source delay. Listing metadata does not spend a historical-date allowance. May publish already-due daily editions and queue normal opt-in notifications.",
+        "x-required-scopes": [
+          "data:read"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "cursor",
+            "schema": {
+              "type": "string",
+              "maxLength": 1800
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      }
+    },
+    "/editions/{id}": {
+      "get": {
+        "operationId": "getEdition",
+        "summary": "Get Edition",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. Required scopes: data:read. Returns published edition metadata; row-level historical reads separately require the date to be included or already unlocked and still available.",
+        "x-required-scopes": [
+          "data:read"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      }
+    },
+    "/carriers/{dot}": {
+      "get": {
+        "operationId": "getCarrier",
+        "summary": "Get Carrier",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. Required scopes: data:read. Returns the permitted current profile, or a profile pinned to an authorized edition_id. Contact fields are returned only with contacts:read. Missing fields, unknown source values and scope-withheld values do not establish a negative fact.",
+        "x-required-scopes": [
+          "data:read"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "dot",
+            "required": true,
+            "schema": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "string",
+              "pattern": "^[0-9]{1,16}$",
+              "description": "A nonzero USDOT identifier as a string; leading zeroes are normalized by the service."
+            }
+          },
+          {
+            "in": "query",
+            "name": "edition_id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Pin the profile to an included or already-unlocked edition that remains within the historical access window."
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      }
+    },
+    "/carriers/{dot}/authorities": {
+      "get": {
+        "operationId": "listAuthorities",
+        "summary": "List Authorities",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. Required scopes: data:read. Lists current published authority records for this carrier. Census registration is distinct from operating authority. Historical family projections are unavailable; do not send edition_id.",
+        "x-required-scopes": [
+          "data:read"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "dot",
+            "required": true,
+            "schema": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "string",
+              "pattern": "^[0-9]{1,16}$",
+              "description": "A nonzero USDOT identifier as a string; leading zeroes are normalized by the service."
+            }
+          },
+          {
+            "in": "query",
+            "name": "cursor",
+            "schema": {
+              "type": "string",
+              "maxLength": 1800
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      }
+    },
+    "/carriers/{dot}/insurance-filings": {
+      "get": {
+        "operationId": "listInsuranceFilings",
+        "summary": "List Insurance Filings",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. Required scopes: data:read, insurance:read. Lists current observed insurance filings and supported dates. A filing anniversary or estimated renewal is not a verified expiration. Historical family projections are unavailable; do not send edition_id.",
+        "x-required-scopes": [
+          "data:read",
+          "insurance:read"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "dot",
+            "required": true,
+            "schema": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "string",
+              "pattern": "^[0-9]{1,16}$",
+              "description": "A nonzero USDOT identifier as a string; leading zeroes are normalized by the service."
+            }
+          },
+          {
+            "in": "query",
+            "name": "cursor",
+            "schema": {
+              "type": "string",
+              "maxLength": 1800
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      }
+    },
+    "/changes": {
+      "get": {
+        "operationId": "listChanges",
+        "summary": "List Changes",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. Required scopes: data:read. Returns published changes. A watchlist_id filter additionally requires watchlists:read. Insurance events are visible only with insurance:read and insurance availability. Preserve selection filters with cursors; store events and deduplicate IDs before advancing the resume cursor.",
+        "x-required-scopes": [
+          "data:read"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "cursor",
+            "schema": {
+              "type": "string",
+              "maxLength": 1800
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          },
+          {
+            "in": "query",
+            "name": "usdot",
+            "schema": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "string",
+              "pattern": "^[0-9]{1,16}$",
+              "description": "A nonzero USDOT identifier as a string; leading zeroes are normalized by the service."
+            }
+          },
+          {
+            "in": "query",
+            "name": "since",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "event_types",
+            "schema": {
+              "type": "string",
+              "maxLength": 300
+            },
+            "description": "Comma-separated published event types."
+          },
+          {
+            "in": "query",
+            "name": "watchlist_id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      }
+    },
+    "/watchlists": {
+      "get": {
+        "operationId": "listWatchlists",
+        "summary": "List Watchlists",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. Required scopes: watchlists:read.",
+        "x-required-scopes": [
+          "watchlists:read"
+        ],
+        "parameters": [],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      },
+      "post": {
+        "operationId": "createWatchlist",
+        "summary": "Create Watchlist",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. Required scopes: watchlists:write. Creates an owned named watchlist. Optional scope and filters configure its settings. The name is trimmed and must contain 1 to 120 characters. Save the payload and Idempotency-Key before submission.",
+        "x-required-scopes": [
+          "watchlists:write"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "description": "Persist this key with the exact request payload and reuse both after a timeout or confirmation; a changed payload conflicts.",
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 128,
+              "pattern": "^[-._:a-zA-Z0-9]{8,128}$"
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 120
+                  },
+                  "scope": {
+                    "type": "string",
+                    "enum": [
+                      "edition",
+                      "catalog",
+                      "daily"
+                    ]
+                  },
+                  "filters": {
+                    "type": "object",
+                    "properties": {
+                      "q": {
+                        "type": "string",
+                        "maxLength": 160
+                      },
+                      "states": {
+                        "maxItems": 51,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "pattern": "^[A-Z]{2}$"
+                        }
+                      },
+                      "classifications": {
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        }
+                      },
+                      "entity_types": {
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        }
+                      },
+                      "cargo": {
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        }
+                      },
+                      "filing_types": {
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        }
+                      },
+                      "insurer": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 160
+                      },
+                      "census_status": {
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        }
+                      },
+                      "operations": {
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        }
+                      },
+                      "fleet": {
+                        "type": "object",
+                        "properties": {
+                          "min": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          "max": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "trucks": {
+                        "type": "object",
+                        "properties": {
+                          "min": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          "max": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "drivers": {
+                        "type": "object",
+                        "properties": {
+                          "min": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          "max": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      }
+    },
+    "/watchlists/{id}": {
+      "get": {
+        "operationId": "getWatchlist",
+        "summary": "Get Watchlist",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. Required scopes: watchlists:read.",
+        "x-required-scopes": [
+          "watchlists:read"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "renameWatchlist",
+        "summary": "Rename Watchlist",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. Required scopes: watchlists:write. Renames an owned watchlist. The name is trimmed and must contain 1 to 120 characters.",
+        "x-required-scopes": [
+          "watchlists:write"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 120
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteWatchlist",
+        "summary": "Delete Watchlist",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. Required scopes: watchlists:write.",
+        "x-required-scopes": [
+          "watchlists:write"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      }
+    },
+    "/watchlists/{id}/targets": {
+      "get": {
+        "operationId": "listAuthorityWatchTargets",
+        "summary": "List Authority Watch Targets",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. Required scopes: watchlists:read. Lists resolved authority targets in this owned watchlist. Use the returned next_cursor target ID for the next page.",
+        "x-required-scopes": [
+          "watchlists:read"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "cursor",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      },
+      "post": {
+        "operationId": "followAuthority",
+        "summary": "Follow Authority",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. Required scopes: watchlists:write. Follows the exact published usdot, docket_number, authority_type and authority_record_id in an owned watchlist. Resolve these from authority evidence and confirm the target with the user before changing it. Save the payload and Idempotency-Key.",
+        "x-required-scopes": [
+          "watchlists:write"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "description": "Persist this key with the exact request payload and reuse both after a timeout or confirmation; a changed payload conflicts.",
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 128,
+              "pattern": "^[-._:a-zA-Z0-9]{8,128}$"
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "properties": {
+                  "usdot": {
+                    "type": "string",
+                    "pattern": "^[0-9]{1,16}$"
+                  },
+                  "docket_number": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 64
+                  },
+                  "authority_type": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 160
+                  },
+                  "authority_record_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  }
+                },
+                "required": [
+                  "usdot",
+                  "docket_number",
+                  "authority_type",
+                  "authority_record_id"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      }
+    },
+    "/watchlists/{id}/events": {
+      "get": {
+        "operationId": "listMatchingWatchEvents",
+        "summary": "List Matching Watch Events",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. Required scopes: watchlists:read. Returns published changes matching this owned watchlist. Optional usdot, since and event_types further restrict the feed. Insurance events are visible only with insurance:read and insurance availability. Store events before advancing the resume cursor.",
+        "x-required-scopes": [
+          "watchlists:read"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "cursor",
+            "schema": {
+              "type": "string",
+              "maxLength": 1800
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          },
+          {
+            "in": "query",
+            "name": "usdot",
+            "schema": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "string",
+              "pattern": "^[0-9]{1,16}$",
+              "description": "A nonzero USDOT identifier as a string; leading zeroes are normalized by the service."
+            }
+          },
+          {
+            "in": "query",
+            "name": "since",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "event_types",
+            "schema": {
+              "type": "string",
+              "maxLength": 300
+            },
+            "description": "Comma-separated published event types."
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      }
+    },
+    "/evidence/{id}": {
+      "get": {
+        "operationId": "getEvidence",
+        "summary": "Get Evidence",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. Required scopes: data:read. Returns a redacted source reference for an authorized fact. Insurance-source evidence additionally requires insurance:read and insurance availability. The parent resource and any historical grant are reauthorized.",
+        "x-required-scopes": [
+          "data:read"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      }
+    },
+    "/exports": {
+      "get": {
+        "operationId": "listExports",
+        "summary": "List Exports",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. Required scopes: exports:read.",
+        "x-required-scopes": [
+          "exports:read"
+        ],
+        "parameters": [],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      },
+      "post": {
+        "operationId": "requestExport",
+        "summary": "Request Export",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. Required scopes: exports:write, contacts:read. Creates an owner-scoped CSV job pinned to an authorized selection and published release. Save the payload and Idempotency-Key before submission. REST uses the user's explicit selection authorization and has no MCP browser-approval step; hosted MCP additionally requires owner approval through confirmation_url and an identical retry with the same key. Renewal selections additionally require insurance:read and insurance availability; edition selections require current historical access. The sample selection is dashboard-only.",
+        "x-required-scopes": [
+          "exports:write",
+          "contacts:read"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "description": "Persist this key with the exact request payload and reuse both after a timeout or confirmation; a changed payload conflicts.",
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 128,
+              "pattern": "^[-._:a-zA-Z0-9]{8,128}$"
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "properties": {
+                  "scope": {
+                    "type": "string",
+                    "enum": [
+                      "edition",
+                      "catalog",
+                      "list",
+                      "renewals"
+                    ]
+                  },
+                  "date_basis": {
+                    "type": "string",
+                    "enum": [
+                      "filing_anniversary",
+                      "estimated_policy_renewal",
+                      "verified_expiration",
+                      "filed_cancellation",
+                      "unknown"
+                    ]
+                  },
+                  "window_days": {
+                    "anyOf": [
+                      {
+                        "type": "number",
+                        "const": 30
+                      },
+                      {
+                        "type": "number",
+                        "const": 45
+                      },
+                      {
+                        "type": "number",
+                        "const": 60
+                      }
+                    ]
+                  },
+                  "edition_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "list_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "filters": {
+                    "type": "object",
+                    "properties": {
+                      "q": {
+                        "type": "string",
+                        "maxLength": 160
+                      },
+                      "states": {
+                        "maxItems": 51,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "pattern": "^[A-Z]{2}$"
+                        }
+                      },
+                      "classifications": {
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        }
+                      },
+                      "entity_types": {
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        }
+                      },
+                      "cargo": {
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        }
+                      },
+                      "filing_types": {
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        }
+                      },
+                      "insurer": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 160
+                      },
+                      "census_status": {
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        }
+                      },
+                      "operations": {
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        }
+                      },
+                      "fleet": {
+                        "type": "object",
+                        "properties": {
+                          "min": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          "max": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "trucks": {
+                        "type": "object",
+                        "properties": {
+                          "min": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          "max": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "drivers": {
+                        "type": "object",
+                        "properties": {
+                          "min": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          "max": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "usdots": {
+                    "maxItems": 25000,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^[0-9]{1,16}$"
+                    }
+                  }
+                },
+                "required": [
+                  "scope"
+                ],
+                "additionalProperties": false,
+                "description": "Use edition_id only for edition scope and list_id only for list scope. Renewal scope requires date_basis and window_days; other scopes must omit them. Optional usdots limits the authorized selection.",
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "scope": {
+                          "const": "edition"
+                        }
+                      },
+                      "required": [
+                        "scope"
+                      ]
+                    },
+                    "then": {
+                      "required": [
+                        "edition_id"
+                      ]
+                    },
+                    "else": {
+                      "not": {
+                        "required": [
+                          "edition_id"
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "scope": {
+                          "const": "list"
+                        }
+                      },
+                      "required": [
+                        "scope"
+                      ]
+                    },
+                    "then": {
+                      "required": [
+                        "list_id"
+                      ]
+                    },
+                    "else": {
+                      "not": {
+                        "required": [
+                          "list_id"
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "scope": {
+                          "const": "renewals"
+                        }
+                      },
+                      "required": [
+                        "scope"
+                      ]
+                    },
+                    "then": {
+                      "required": [
+                        "date_basis",
+                        "window_days"
+                      ]
+                    },
+                    "else": {
+                      "not": {
+                        "anyOf": [
+                          {
+                            "required": [
+                              "date_basis"
+                            ]
+                          },
+                          {
+                            "required": [
+                              "window_days"
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      }
+    },
+    "/exports/{id}": {
+      "get": {
+        "operationId": "getExport",
+        "summary": "Get Export",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. Required scopes: exports:read. Returns the owner's job state. Renewal jobs additionally require insurance:read and insurance availability; edition selections require current historical access. Poll this job rather than enqueueing another export.",
+        "x-required-scopes": [
+          "exports:read"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      }
+    },
+    "/exports/{id}/download": {
+      "get": {
+        "operationId": "getExportManifest",
+        "summary": "Get Export Manifest",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. Required scopes: exports:read, contacts:read. Returns the authenticated manifest with part index, byte length, volume and SHA-256. Renewal jobs additionally require insurance:read and insurance availability; edition selections require current historical access. The manifest contains no unauthenticated storage URLs.",
+        "x-required-scopes": [
+          "exports:read",
+          "contacts:read"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      }
+    },
+    "/exports/{id}/parts/{part}": {
+      "get": {
+        "operationId": "getExportPart",
+        "summary": "Get Export Part",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. Required scopes: exports:read, contacts:read. Downloads an authenticated CSV byte part, at most 2 MiB. Verify its length and SHA-256 against the manifest and assemble parts by volume. Renewal jobs additionally require insurance:read and insurance availability; edition selections require current historical access. Current authorization and suppression state are rechecked.",
+        "x-required-scopes": [
+          "exports:read",
+          "contacts:read"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "path",
+            "name": "part",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^(0|[1-9][0-9]{0,5})$"
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      }
+    },
+    "/webhook-endpoints": {
+      "get": {
+        "operationId": "getWebhookEndpoints",
+        "summary": "Get Webhook Endpoints",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. Required scopes: webhooks:read.",
+        "x-required-scopes": [
+          "webhooks:read"
+        ],
+        "parameters": [],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      }
+    },
+    "/webhook-deliveries": {
+      "get": {
+        "operationId": "getWebhookDeliveries",
+        "summary": "Get Webhook Deliveries",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. Required scopes: webhooks:read.",
+        "x-required-scopes": [
+          "webhooks:read"
+        ],
+        "parameters": [],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      }
+    },
+    "/carriers/search": {
+      "post": {
+        "operationId": "searchCarriers",
+        "summary": "Search Carriers",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. Required scopes: data:read. Searches the published catalog. Contact fields require contacts:read. Preserve the original filters and opaque cursor when paginating; data-search cursors retain their initial one-hour deadline.",
+        "x-required-scopes": [
+          "data:read"
+        ],
+        "parameters": [],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "properties": {
+                  "filters": {
+                    "default": {},
+                    "type": "object",
+                    "properties": {
+                      "q": {
+                        "type": "string",
+                        "maxLength": 160
+                      },
+                      "states": {
+                        "maxItems": 51,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "pattern": "^[A-Z]{2}$"
+                        }
+                      },
+                      "classifications": {
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        }
+                      },
+                      "entity_types": {
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        }
+                      },
+                      "cargo": {
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        }
+                      },
+                      "filing_types": {
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        }
+                      },
+                      "insurer": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 160
+                      },
+                      "census_status": {
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        }
+                      },
+                      "operations": {
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        }
+                      },
+                      "fleet": {
+                        "type": "object",
+                        "properties": {
+                          "min": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          "max": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "trucks": {
+                        "type": "object",
+                        "properties": {
+                          "min": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          "max": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "drivers": {
+                        "type": "object",
+                        "properties": {
+                          "min": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          "max": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "limit": {
+                    "default": 50,
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 100
+                  },
+                  "cursor": {
+                    "type": "string",
+                    "maxLength": 1800
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      }
+    },
+    "/editions/{id}/search": {
+      "post": {
+        "operationId": "searchEdition",
+        "summary": "Search Edition",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. Required scopes: data:read. Searches membership in the latest or an already-unlocked edition still within Lead History. Contact fields require contacts:read. Expired historical dates cannot be reopened; preserve filters and the opaque cursor when paginating.",
+        "x-required-scopes": [
+          "data:read"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "properties": {
+                  "filters": {
+                    "default": {},
+                    "type": "object",
+                    "properties": {
+                      "q": {
+                        "type": "string",
+                        "maxLength": 160
+                      },
+                      "states": {
+                        "maxItems": 51,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "pattern": "^[A-Z]{2}$"
+                        }
+                      },
+                      "classifications": {
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        }
+                      },
+                      "entity_types": {
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        }
+                      },
+                      "cargo": {
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        }
+                      },
+                      "filing_types": {
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        }
+                      },
+                      "insurer": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 160
+                      },
+                      "census_status": {
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        }
+                      },
+                      "operations": {
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        }
+                      },
+                      "fleet": {
+                        "type": "object",
+                        "properties": {
+                          "min": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          "max": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "trucks": {
+                        "type": "object",
+                        "properties": {
+                          "min": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          "max": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "drivers": {
+                        "type": "object",
+                        "properties": {
+                          "min": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          "max": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "limit": {
+                    "default": 50,
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 100
+                  },
+                  "cursor": {
+                    "type": "string",
+                    "maxLength": 1800
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      }
+    },
+    "/renewals/search": {
+      "post": {
+        "operationId": "searchRenewals",
+        "summary": "Search Renewals",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. Required scopes: insurance:read. Searches published insurance research. Choose an explicit date_basis to distinguish anniversaries, estimates, verified expirations and filed cancellations. REST defaults to filing_anniversary and 30 days when omitted; hosted MCP requires both values explicitly. Insurance availability is separately enforced.",
+        "x-required-scopes": [
+          "insurance:read"
+        ],
+        "parameters": [],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "properties": {
+                  "filters": {
+                    "default": {},
+                    "type": "object",
+                    "properties": {
+                      "q": {
+                        "type": "string",
+                        "maxLength": 160
+                      },
+                      "states": {
+                        "maxItems": 51,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "pattern": "^[A-Z]{2}$"
+                        }
+                      },
+                      "classifications": {
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        }
+                      },
+                      "entity_types": {
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        }
+                      },
+                      "cargo": {
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        }
+                      },
+                      "filing_types": {
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        }
+                      },
+                      "insurer": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 160
+                      },
+                      "census_status": {
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        }
+                      },
+                      "operations": {
+                        "maxItems": 64,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100
+                        }
+                      },
+                      "fleet": {
+                        "type": "object",
+                        "properties": {
+                          "min": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          "max": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "trucks": {
+                        "type": "object",
+                        "properties": {
+                          "min": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          "max": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "drivers": {
+                        "type": "object",
+                        "properties": {
+                          "min": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          "max": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "limit": {
+                    "default": 50,
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 100
+                  },
+                  "cursor": {
+                    "type": "string",
+                    "maxLength": 1800
+                  },
+                  "date_basis": {
+                    "default": "filing_anniversary",
+                    "type": "string",
+                    "enum": [
+                      "filing_anniversary",
+                      "estimated_policy_renewal",
+                      "verified_expiration",
+                      "filed_cancellation",
+                      "unknown"
+                    ]
+                  },
+                  "window_days": {
+                    "default": 30,
+                    "anyOf": [
+                      {
+                        "type": "number",
+                        "const": 30
+                      },
+                      {
+                        "type": "number",
+                        "const": 45
+                      },
+                      {
+                        "type": "number",
+                        "const": 60
+                      }
+                    ]
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      }
+    },
+    "/editions/{id}/access": {
+      "post": {
+        "operationId": "unlockHistoricalEdition",
+        "summary": "Unlock Historical Edition",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. Required scopes: data:read, archive:unlock. Requires account-owner approval in both REST and hosted MCP. Submit the exact edition date with a saved Idempotency-Key; on confirmation_required, give the owner the returned confirmation_url and retry the identical request with the same key after approval. Opening a new historical date can consume the account allowance. The latest edition is included; historical dates outside the rolling 90 Eastern calendar dates return archive_expired even if opened earlier.",
+        "x-required-scopes": [
+          "data:read",
+          "archive:unlock"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "description": "Persist this key with the exact request payload and reuse both after a timeout or confirmation; a changed payload conflicts.",
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 128,
+              "pattern": "^[-._:a-zA-Z0-9]{8,128}$"
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "properties": {
+                  "confirm_edition_date_et": {
+                    "type": "string",
+                    "format": "date",
+                    "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+                  }
+                },
+                "required": [
+                  "confirm_edition_date_et"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      }
+    },
+    "/watchlists/{id}/items": {
+      "post": {
+        "operationId": "addWatchTargets",
+        "summary": "Add Watch Targets",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. Required scopes: watchlists:write. Adds one to 100 visible USDOT string identifiers to this owned watchlist. The REST route does not require an Idempotency-Key for this operation.",
+        "x-required-scopes": [
+          "watchlists:write"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "properties": {
+                  "usdots": {
+                    "minItems": 1,
+                    "maxItems": 100,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^[0-9]{1,16}$"
+                    }
+                  }
+                },
+                "required": [
+                  "usdots"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      }
+    },
+    "/watchlists/{id}/items/{dot}": {
+      "delete": {
+        "operationId": "removeWatchTarget",
+        "summary": "Remove Watch Target",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. Required scopes: watchlists:write.",
+        "x-required-scopes": [
+          "watchlists:write"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "path",
+            "name": "dot",
+            "required": true,
+            "schema": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "string",
+              "pattern": "^[0-9]{1,16}$",
+              "description": "A nonzero USDOT identifier as a string; leading zeroes are normalized by the service."
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      }
+    },
+    "/watchlists/{id}/targets/{targetId}": {
+      "delete": {
+        "operationId": "unfollowAuthority",
+        "summary": "Unfollow Authority",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. Required scopes: watchlists:write. Removes the exact resolved authority target from this owned watchlist. Deletion is idempotent; confirm the target with the user before changing it.",
+        "x-required-scopes": [
+          "watchlists:write"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "path",
+            "name": "targetId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      }
+    },
+    "/watchlists/{id}/rules": {
+      "patch": {
+        "operationId": "updateWatchRules",
+        "summary": "Update Watch Rules",
+        "description": "Requires active Pro and an owner-scoped REST bearer key. Required scopes: watchlists:write. Changes future event matching or pauses/resumes this owned watchlist. At least one field is required. Insurance event types additionally require insurance:read and insurance availability.",
+        "x-required-scopes": [
+          "watchlists:write"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "properties": {
+                  "paused": {
+                    "type": "boolean"
+                  },
+                  "event_types": {
+                    "maxItems": 24,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "first_observed",
+                        "contact_changed",
+                        "equipment_changed",
+                        "census_status_changed",
+                        "profile_changed",
+                        "census_reactivated",
+                        "reappeared",
+                        "carrier.observed",
+                        "carrier.source_removed",
+                        "authhist.observed",
+                        "authhist.source_removed",
+                        "revokesuspend.observed",
+                        "revokesuspend.source_removed",
+                        "authority.pending_application",
+                        "authority.granted",
+                        "authority.suspended",
+                        "authority.reinstated",
+                        "authority.revoked",
+                        "authority.denied",
+                        "authority.withdrawn",
+                        "insur.observed",
+                        "insur.source_removed",
+                        "inshist.observed",
+                        "inshist.source_removed"
+                      ]
+                    }
+                  }
+                },
+                "additionalProperties": false,
+                "minProperties": 1
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Authorized operation result",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "data": {},
+                    "meta": {
+                      "type": "object"
+                    },
+                    "next_cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Credential required"
+          },
+          "402": {
+            "description": "Active Pro required"
+          },
+          "403": {
+            "description": "Insufficient scope or allowance"
+          },
+          "404": {
+            "description": "Unknown or inaccessible resource"
+          },
+          "409": {
+            "description": "Idempotency conflict, changed projection or owner confirmation required"
+          },
+          "410": {
+            "description": "Expired cursor, artifact or dated edition outside the rolling 90-day Lead History window (archive_expired); the latest published edition remains available"
+          },
+          "429": {
+            "description": "Request limit exceeded",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or binding unavailable"
+          }
+        }
+      }
+    }
+  },
+  "webhooks": {
+    "carrierNotification": {
+      "post": {
+        "operationId": "receiveTruckerFetchEvent",
+        "description": "Verify the exact event bytes with the endpoint signing secret, timestamp and event ID. Use the API to retrieve private details.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "TruckerFetch-Event-Id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "TruckerFetch-Key-Id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "TruckerFetch-Timestamp",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "TruckerFetch-Signature",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "type"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "resource": {
+                    "type": "string"
+                  },
+                  "schema_version": {
+                    "type": "integer"
+                  },
+                  "occurred_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Verified event persisted"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKey": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Owner-scoped Pro API key"
+      }
+    }
+  }
+}

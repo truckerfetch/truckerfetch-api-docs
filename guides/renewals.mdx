@@ -1,0 +1,31 @@
+---
+title: "Research insurance timing with an explicit date basis"
+description: "Search insurance evidence over a supported timing window and retain the date basis so filing anniversaries are never presented as verified expirations."
+keywords: ["insurance", "renewals", "date basis"]
+---
+
+TruckerFetch renewal research separates insurance date evidence by basis. Choose what you mean before searching, then preserve that basis and the supporting evidence in every result you report.
+
+| `date_basis` | Meaning |
+| --- | --- |
+| `filing_anniversary` | Filing anniversary research, distinct from a verified expiration. |
+| `estimated_policy_renewal` | An estimated renewal basis, not a verified policy expiration. |
+| `verified_expiration` | Expiration supported by the published evidence. |
+| `filed_cancellation` | Filed cancellation timing. |
+| `unknown` | Date basis is unknown. |
+
+The endpoint requires `insurance:read`, available insurance data and an explicit `window_days` of 30, 45 or 60.
+
+```bash
+curl --fail-with-body --silent --show-error \
+  'https://truckerfetch.com/api/v1/renewals/search' \
+  -H "Authorization: Bearer $TRUCKERFETCH_API_KEY" \
+  -H 'Content-Type: application/json' \
+  --data '{"date_basis":"filing_anniversary","window_days":30,"filters":{"states":["TX"]},"limit":10}'
+```
+
+Read the returned `data`, source and freshness metadata. Follow `next_cursor` using the same filters, date basis and window. An empty result does not establish that no policies expire during that period; it means no matching evidence was returned for the requested selection.
+
+Use `GET /carriers/{dot}/insurance-filings` for observed filing records and `GET /evidence/{id}` for an authorized redacted source reference. Keep insurance timing distinct from the carrier's Census status and operating authorities.
+
+For a pinned CSV, use the [export workflow](/guides/exports) and retain the same date basis and window. Do not infer a verified expiration from a filing date, anniversary or estimated renewal.

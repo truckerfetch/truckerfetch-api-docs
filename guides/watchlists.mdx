@@ -1,0 +1,36 @@
+---
+title: "Follow carriers and exact operating authorities"
+description: "Create an owned watchlist, add published USDOT records or a resolved authority target and read matched events under current account permissions."
+keywords: ["watchlists", "authority", "events"]
+---
+
+TruckerFetch watchlists follow carriers and specific operating authorities. Choose the target deliberately: a carrier USDOT and one resolved docket/type authority are different selections.
+
+## Create a watchlist
+
+With `watchlists:write`, save an idempotency key and the requested name, then send:
+
+```bash
+curl --fail-with-body --silent --show-error \
+  'https://truckerfetch.com/api/v1/watchlists' \
+  -H "Authorization: Bearer $TRUCKERFETCH_API_KEY" \
+  -H "Idempotency-Key: $TRUCKERFETCH_REQUEST_KEY" \
+  -H 'Content-Type: application/json' \
+  --data '{"name":"Carrier review"}'
+```
+
+The API returns `201` with the owned collection in `data`. Keep the returned ID. `GET /watchlists` and `GET /watchlists/{id}` require `watchlists:read`.
+
+## Add a carrier or authority
+
+To follow carriers, POST `/watchlists/{id}/items` with `usdots` from your published carrier results. The request accepts up to 100 USDOT strings.
+
+To follow a specific authority, first read `GET /carriers/{dot}/authorities` with `data:read`. Confirm the returned carrier, `authority_record_id`, prefixed `docket_number` and `authority_type`. POST those exact fields plus `usdot` to `/watchlists/{id}/targets` using a saved idempotency key. Do not guess an authority from an unprefixed number or choose among ambiguous candidates automatically.
+
+## Read matches and manage rules
+
+Read `/watchlists/{id}/targets` for resolved authorities and `/watchlists/{id}/events` for matching published events. Insurance-sensitive results remain subject to the required permissions and data availability.
+
+PATCH `/watchlists/{id}/rules` with `paused` or supported `event_types` to change future matching. Confirm the intended pause, resume or rule change before an agent performs it. Remove an authority using its returned target ID at `/watchlists/{id}/targets/{targetId}`.
+
+Use the generated API reference for the complete event enum and request schema. Preserve publication dates and source meaning when reporting a match.

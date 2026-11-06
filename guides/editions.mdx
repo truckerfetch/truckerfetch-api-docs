@@ -1,0 +1,38 @@
+---
+title: "Read the latest and historical carrier editions"
+description: "Find published edition dates, search the included latest edition and open an eligible historical date through explicit owner review and safe retries."
+keywords: ["editions", "Lead History", "archive", "idempotency"]
+---
+
+TruckerFetch editions preserve a date-specific carrier selection. Read the published metadata first and use the returned edition ID instead of calculating one from the current date.
+
+```bash
+curl --fail-with-body --silent --show-error \
+  'https://truckerfetch.com/api/v1/editions/latest' \
+  -H "Authorization: Bearer $TRUCKERFETCH_API_KEY"
+```
+
+The response wraps the latest edition in `data` with request metadata in `meta`. `GET /editions` lists available edition metadata without consuming a historical date allowance.
+
+## Search an accessible edition
+
+Set `EDITION_ID` to a returned ID, then search with `data:read`:
+
+```bash
+curl --fail-with-body --silent --show-error \
+  "https://truckerfetch.com/api/v1/editions/$EDITION_ID/search" \
+  -H "Authorization: Bearer $TRUCKERFETCH_API_KEY" \
+  -H 'Content-Type: application/json' \
+  --data '{"filters":{"states":["TX"]},"limit":10}'
+```
+
+The latest published edition is included. A historical edition must be opened for the owning account before you search or export it.
+
+## Open a historical date
+
+1. Review the exact `edition_date_et` and your current allowance in the dashboard or account response.
+2. Save an idempotency key and the exact request body. With `data:read` and `archive:unlock`, POST `/editions/{id}/access` with `confirm_edition_date_et`.
+3. If the API returns `409 confirmation_required`, open its `confirmation_url` while signed in to the owning account. Review and approve that specific date.
+4. Retry the identical request with the same `Idempotency-Key`. Do not create a fresh key after a timeout.
+
+Lead History covers today and the preceding 89 Eastern calendar dates. Expired dates return `410 archive_expired` even if previously opened. The latest published edition remains available during a source delay and retains its original date. Opening an expired date is not supported, and expiry does not refund an archive allowance slot.

@@ -1,0 +1,39 @@
+---
+title: "Search published carriers and paginate results"
+description: "Search by state, reported classifications, fleet or text filters, then follow opaque cursors with unchanged selection inputs and source metadata."
+keywords: ["carrier search", "pagination", "filters"]
+---
+
+TruckerFetch catalog search returns a bounded page of published carriers. Use filters to narrow your selection before increasing page size or creating an export.
+
+```bash
+curl --fail-with-body --silent --show-error \
+  'https://truckerfetch.com/api/v1/carriers/search' \
+  -H "Authorization: Bearer $TRUCKERFETCH_API_KEY" \
+  -H 'Content-Type: application/json' \
+  --data '{"filters":{"states":["TX"],"fleet":{"min":5,"max":25}},"limit":10}'
+```
+
+Search supports `q`, `states`, `classifications`, `entity_types`, `cargo`, `filing_types`, `insurer`, `census_status`, `operations`, `fleet`, `trucks` and `drivers`. Count ranges accept `min` and `max`. Use the exact reported codes appropriate to your data rather than assuming an enum value.
+
+The default page limit is 50 and the maximum is 100. A successful response contains `data`, `meta` and an optional `next_cursor`; preserve the source release and freshness metadata alongside displayed rows.
+
+## Request the next page
+
+Copy the returned `next_cursor` into the next POST body and keep the filters unchanged:
+
+```json
+{
+  "filters": {"states": ["TX"], "fleet": {"min": 5, "max": 25}},
+  "limit": 10,
+  "cursor": "RETURNED_CURSOR"
+}
+```
+
+Do not construct or edit cursors. If the cursor expires or the selection changes, restart from the first page using your intended filters. Do not join pages from incompatible releases as though they were one snapshot.
+
+## Read a chosen carrier
+
+Use the USDOT string returned by search in `GET /carriers/{dot}`. Retrieve its authorities and insurance filings through the corresponding child routes; insurance requires `insurance:read`. Contact fields require `contacts:read`.
+
+For a date-specific selection, follow the [edition workflow](/guides/editions). Historical family projections for the authorities and insurance-filings child routes are not available through `edition_id`.

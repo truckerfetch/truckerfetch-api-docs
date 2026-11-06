@@ -1,0 +1,29 @@
+---
+title: "Handle shared rate limits and pagination"
+description: "Coordinate REST keys and MCP grants within account-wide request and concurrency limits, honor Retry-After and keep retries tied to saved operations."
+keywords: ["rate limits", "Retry-After", "concurrency"]
+---
+
+TruckerFetch REST and hosted MCP share account-wide developer usage. Adding another key or assistant connection does not create another account allowance.
+
+The implemented interactive limits are 60 requests per minute and four concurrent operations per account. Check `GET /usage` and the [Usage dashboard](https://truckerfetch.com/dashboard/api/usage) for your current usage and limits.
+
+## Respond to throttling
+
+When an operation returns `429`, wait for its `Retry-After` value before retrying. The current error response uses a 60-second value. Limit concurrency across your workers and connections, add jitter to scheduled retries, and avoid retry bursts at the same boundary.
+
+```http
+HTTP/1.1 429 Too Many Requests
+Retry-After: 60
+Cache-Control: private, no-store
+```
+
+Read-only retries should retain their intended filters and cursor. Mutation retries must retain the original idempotency key and exact payload. A timeout or rate limit is not a reason to create another export or archive request.
+
+## Keep pages small
+
+Search accepts 1 to 100 rows per page, with a default of 50. For MCP, start with a smaller limit such as 10. If a tool reports `response_too_large`, narrow the filters or page size and retrieve CSV files outside the model context.
+
+Cursors are opaque and tied to the authorized selection. `409 selection_changed` means you need to restart the selection; `410 cursor_expired` means you need a fresh first page. See [search](/guides/carrier-search) and [errors](/errors).
+
+Use an [export](/guides/exports) for a pinned CSV and inspect its job state rather than polling aggressively. Export allowances and historical-date allowances are separate from interactive request limits.

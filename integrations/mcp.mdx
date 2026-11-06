@@ -1,0 +1,36 @@
+---
+title: "Connect an assistant through hosted MCP"
+description: "Authorize the TruckerFetch Streamable HTTP MCP endpoint with OAuth, start with scoped research tools and preserve owner review for consequential actions."
+keywords: ["MCP", "OAuth", "Streamable HTTP", "stdio"]
+---
+
+TruckerFetch hosted MCP connects an authorized assistant to the same published data and account permissions as the REST API. Add the remote endpoint to a compatible client and complete its OAuth flow.
+
+```text
+https://truckerfetch.com/api/mcp
+```
+
+## Authorize the connection
+
+1. Add a remote Streamable HTTP MCP server using the URL above.
+2. Sign in to TruckerFetch through the client's authorization flow.
+3. Review the requested scopes and approve only the permissions your workflow needs.
+4. Review or revoke the grant in [Connections](https://truckerfetch.com/dashboard/api/connections).
+
+Use a client that can complete TruckerFetch OAuth. Do not put a REST API key into the hosted URL or a tool argument. If your client needs setup details beyond its standard OAuth flow, consult its integration instructions before granting access.
+
+## Start with bounded research
+
+Ask your assistant to retrieve the latest edition, search a narrow carrier page and report the source date. Useful tools include `get_latest_edition`, `list_editions`, `search_carriers`, `search_edition`, `get_carrier`, `list_authorities`, `list_insurance_filings`, `search_renewals`, `get_evidence` and `list_changes`.
+
+The server also exposes watchlist, export and historical-access tools according to account permissions. Tool discovery does not grant access: each call still checks scopes and current Pro entitlement. Start with a page limit of 10 and keep CSV files outside the model context.
+
+## Preserve owner intent
+
+Before watchlist mutations, confirm the requested name, target or rule change. For an authority, resolve the carrier, prefixed docket and authority type from published records. Save `idempotency_key` for creates and reuse it after an uncertain response.
+
+`unlock_edition` and hosted `request_export` can return a TruckerFetch owner review link. Complete that signed-in review, then repeat the same tool call with unchanged arguments and key.
+
+## Local stdio bridge
+
+The [official MCP repository](https://github.com/truckerfetch/truckerfetch-mcp) also provides a local stdio bridge backed by REST API keys. Use its installation and environment instructions. Hosted OAuth and local REST authentication are separate choices; the bridge does not turn an API key into a hosted OAuth grant.

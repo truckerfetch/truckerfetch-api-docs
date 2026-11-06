@@ -1,0 +1,18 @@
+{
+  "name": "truckerfetch-api-docs",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "validate": "node scripts/validate.mjs && node --test worker/*.test.mjs",
+    "sync:openapi": "node scripts/sync-openapi.mjs",
+    "preview": "npx mint dev --no-open"
+  },
+  "devDependencies": {
+    "@apidevtools/swagger-parser": "12.0.0",
+    "@mdx-js/mdx": "3.1.1"
+  }
+}

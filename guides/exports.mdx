@@ -1,0 +1,36 @@
+---
+title: "Create and retrieve a pinned CSV export"
+description: "Request an owner-scoped carrier export with a durable idempotency key, monitor the job and download authenticated file parts with integrity metadata."
+keywords: ["exports", "CSV", "idempotency", "download"]
+---
+
+TruckerFetch exports pin your selection to a published source release. Use an export for a CSV workflow and keep the saved request key so retries refer to the same logical job.
+
+## Request a catalog export
+
+Use `exports:write` and `contacts:read` to create the export. Generate an idempotency key once, save it with the request body, then submit:
+
+```bash
+curl --fail-with-body --silent --show-error \
+  'https://truckerfetch.com/api/v1/exports' \
+  -H "Authorization: Bearer $TRUCKERFETCH_API_KEY" \
+  -H "Idempotency-Key: $TRUCKERFETCH_REQUEST_KEY" \
+  -H 'Content-Type: application/json' \
+  --data '{"scope":"catalog","filters":{"states":["TX"]}}'
+```
+
+A successful request returns `202` with the job in `data`. Keep its ID. The `edition` scope requires `edition_id` and current access to that date. The `list` scope requires an owned `list_id`. The fixed dashboard sample is not an external API export.
+
+## Monitor and download
+
+With `exports:read`, GET `/exports/{id}` to read job state. Wait until it is ready, then GET `/exports/{id}/download` to read its manifest. Download also requires `contacts:read`.
+
+The manifest's `data` contains the export `id`, `row_count` and ordered `parts`. Each part has an `index`, `length`, `volume` and `sha256`. Retrieve each part with the same bearer credential at `/exports/{id}/parts/{part}` and verify its length and SHA-256. Keep binary files out of an assistant's context.
+
+Access is rechecked for downloads. An expired artifact returns `410`; a changed suppression or projection can require rebuilding. Never treat an old download or job receipt as permanent authorization.
+
+## MCP owner review and retries
+
+Hosted MCP `request_export` can return an owner approval link. Open that link while signed in, review the selection, then retry the same tool arguments and `idempotency_key`. A plain success message from an assistant does not replace the product's owner review.
+
+For REST or MCP timeouts, reuse the same key and selection. Inspect the saved result or existing export before starting a new request. See [errors](/errors) for conflict and recovery behavior.

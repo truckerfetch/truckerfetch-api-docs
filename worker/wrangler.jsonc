@@ -1,0 +1,38 @@
+{
+  "name": "truckerfetch-docs-proxy",
+  "main": "index.mjs",
+  "compatibility_date": "2026-11-05",
+  "account_id": "2d4f469711633220b8e9639b85463af0",
+  "workers_dev": false,
+  "preview_urls": false,
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 0.1
+  },
+  "routes": [
+    {
+      "pattern": "truckerfetch.com/docs*",
+      "zone_name": "truckerfetch.com"
+    },
+    {
+      "pattern": "truckerfetch.com/mintlify-assets/*",
+      "zone_name": "truckerfetch.com"
+    },
+    {
+      "pattern": "truckerfetch.com/_mintlify/*",
+      "zone_name": "truckerfetch.com"
+    },
+    {
+      "pattern": "www.truckerfetch.com/docs*",
+      "zone_name": "truckerfetch.com"
+    },
+    {
+      "pattern": "www.truckerfetch.com/mintlify-assets/*",
+      "zone_name": "truckerfetch.com"
+    },
+    {
+      "pattern": "www.truckerfetch.com/_mintlify/*",
+      "zone_name": "truckerfetch.com"
+    }
+  ]
+}

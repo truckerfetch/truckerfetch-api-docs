@@ -1,0 +1,45 @@
+---
+title: "Receive and verify signed TruckerFetch webhooks"
+description: "Register your HTTPS destination in the dashboard, verify the exact signed event bytes and deduplicate notifications before retrieving authorized details."
+keywords: ["webhooks", "HMAC", "signature", "events"]
+---
+
+TruckerFetch customer webhooks notify your system about published editions, watchlist matches and export outcomes. Configure destinations and review delivery attempts in [Customer webhooks](https://truckerfetch.com/dashboard/api/webhooks).
+
+## Register your destination
+
+Use an HTTPS endpoint you control. Destination URLs cannot contain credentials, query strings or fragments. Save the signing secret securely when it is revealed. During verification, TruckerFetch sends a signed `endpoint.verify` event with a `challenge` field. Verify the request signature, then return the exact challenge as the response body with a `2xx` status. The endpoint must pass verification before normal deliveries begin.
+
+Supported subscriptions are `edition.published`, `edition.corrected`, `watchlist.matched`, `export.ready` and `export.failed`. Developer credentials with `webhooks:read` can read `/webhook-endpoints` and `/webhook-deliveries`; endpoint and secret management stay in the signed-in dashboard.
+
+## Verify before processing
+
+Read these headers and retain the raw request body before parsing JSON:
+
+- `TruckerFetch-Event-Id`
+- `TruckerFetch-Key-Id`
+- `TruckerFetch-Timestamp`
+- `TruckerFetch-Signature`
+
+The timestamp is Unix time in seconds. The signature is `v1=` followed by the hex HMAC-SHA256 of the event ID, a period, the timestamp, a period, and the exact body bytes. The signing secret is supplied as base64url; decode it to bytes first.
+
+```javascript
+import {createHmac, timingSafeEqual} from 'node:crypto';
+
+export function verifySignature({secret, eventId, timestamp, rawBody, signature}) {
+  if (!/^v1=[a-f0-9]{64}$/.test(signature)) return false;
+  const expected = createHmac('sha256', Buffer.from(secret, 'base64url'))
+    .update(eventId + '.' + timestamp + '.')
+    .update(rawBody)
+    .digest();
+  return timingSafeEqual(expected, Buffer.from(signature.slice(3), 'hex'));
+}
+```
+
+Reject malformed or stale timestamps under your replay policy. Persist the verified event ID with your work and deduplicate repeated deliveries. A signature comparison alone does not prevent replay.
+
+## Acknowledge and retrieve details
+
+After you durably accept a verified event, return a `2xx` response. The event carries `id`, `type`, `schema_version`, `occurred_at` and a relative `resource` path. Retrieve that resource from `https://truckerfetch.com` with an appropriately scoped API key; the notification does not grant access by itself.
+
+Deliveries can repeat, fail or arrive after permissions change. Return promptly and do heavier work asynchronously. A `410` response disables the endpoint. Use dashboard delivery history to inspect failures and request a replay when appropriate.

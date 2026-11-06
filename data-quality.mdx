@@ -1,0 +1,31 @@
+---
+title: "Interpret carrier data and source evidence"
+description: "Keep Census status, authority status, insurance observations, date bases and source freshness distinct when reporting TruckerFetch carrier research."
+keywords: ["data quality", "authority", "source freshness", "evidence"]
+---
+
+TruckerFetch publishes carrier, authority and insurance evidence with separate source meanings. Preserve those distinctions when you display a profile, qualify a carrier or explain an assistant result.
+
+## Keep status and time separate
+
+| Fact | Interpretation |
+| --- | --- |
+| Census status | The carrier's reported Census status. It is distinct from operating authority and insurance status. |
+| First observed | When TruckerFetch first observed a record in the relevant published data. It does not establish when the business began. |
+| Authority status | A published authority observation tied to a resolved carrier, docket and authority type. |
+| Insurance filing | An observed filing with its independently supported dates. It does not establish a policy expiration unless that fact is supported. |
+| Source freshness | The as-of and publication metadata for the source family used by the result. Different families can have different dates. |
+
+The latest published edition can have an earlier calendar date during a source delay. Report the returned date instead of labeling it as today's data.
+
+## Preserve identifiers and evidence
+
+Treat USDOT identifiers and docket numbers as strings. Retain docket prefixes and the returned authority type. Review a carrier's authorities before following one specific authority in a watchlist.
+
+Use an evidence ID returned with an authorized fact to retrieve its redacted source reference through `GET /evidence/{id}`. Evidence follows your current data and insurance permissions.
+
+## Contacts and date confidence
+
+Reported contact availability does not guarantee deliverability or reachability. Follow account suppressions and applicable outreach requirements in your own workflow.
+
+For insurance timing, retain the explicit `date_basis` and supporting evidence. Read [renewal research](/guides/renewals) before labeling any result as an expiration or renewal opportunity. Missing or unknown facts should remain unknown in your output.
