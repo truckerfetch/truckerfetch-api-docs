@@ -5,3 +5,8 @@
 html.dark #content a:not(.card),
 html.dark #sidebar-content li[data-active] > a { color: #FFD0B9; }
 html.dark #content a:not(.card):hover { color: #FFFFFF; }
+/* Keep small brand text readable on the warm light surface. */
+html:not(.dark) [data-layout-item="page-header"] .eyebrow,
+html:not(.dark) [data-layout-item="toc-item-link"][data-active="true"] {
+  color: #B83D16;
+}

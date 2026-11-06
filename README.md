@@ -1,6 +1,6 @@
 # TruckerFetch API documentation
 
-Official Mintlify documentation for the TruckerFetch Pro REST API, hosted OAuth MCP and agent skills. Canonical target: https://truckerfetch.com/docs.
+Official Mintlify documentation for the TruckerFetch Pro REST API, hosted OAuth MCP and agent skills. Live documentation: https://truckerfetch.com/docs.
 
 ## Local development
 
@@ -18,7 +18,9 @@ The light and dark SVG logos and icon in `images/` are copies of the application
 
 ## Publishing
 
-Connect this public repository to the TruckerFetch Mintlify deployment, configure its base path as `/docs`, and use the application's approved proxy configuration for `https://truckerfetch.com/docs`. Deploy from a reviewed commit on the connected branch. Verify the hosted origin and the public `/docs` URL before reporting that content is live. Hosting/domain changes are managed separately from content validation.
+This repository is connected to the TruckerFetch Mintlify deployment on `main`, with base path `/docs`. The existing Next.js app proxies the documentation and Mintlify assets at `https://truckerfetch.com/docs`; it strips application credentials, uses a fixed HTTPS upstream and streams responses. The optional Cloudflare Worker in `worker/` provides equivalent docs-only routes when Cloudflare proxying is enabled. Keep the main application DNS pointed at its existing host.
+
+Deploy docs from a reviewed commit on `main`. Verify both `https://truckerfetch.mintlify.site/docs` and the public `/docs` URL after changes. `npm run validate` also checks the optional Worker routing and credential boundary. Hosting/domain changes are managed separately from content validation.
 
 ## Public developer repositories
 
