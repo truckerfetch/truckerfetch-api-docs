@@ -11,10 +11,10 @@ html:not(.dark) [data-layout-item="toc-item-link"][data-active="true"] {
   color: #B83D16;
 }
 
-/* Match the landing page's orange CTA and Asphalt label in both themes. */
+/* Signal Orange CTA with a white label and arrow in both themes. */
 #topbar-cta-button a,
 #topbar-cta-button a * {
-  color: #252321;
+  color: #FFFFFF;
 }
 #topbar-cta-button a:hover > span {
   background-color: #F05A2B;
