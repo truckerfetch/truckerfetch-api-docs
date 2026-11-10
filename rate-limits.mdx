@@ -6,11 +6,11 @@ keywords: ["rate limits", "Retry-After", "concurrency"]
 
 TruckerFetch REST and hosted MCP share account-wide developer usage. Adding another key or assistant connection does not create another account allowance.
 
-The implemented interactive limits are 60 requests per minute and four concurrent operations per account. Check `GET /usage` and the [Usage dashboard](https://truckerfetch.com/dashboard/api/usage) for your current usage and limits.
+Requests, concurrency and delivered data are subject to account-wide fair-use limits. Check `GET /usage` and the [Usage dashboard](https://truckerfetch.com/dashboard/api/usage) for your current activity.
 
 ## Respond to throttling
 
-When an operation returns `429`, wait for its `Retry-After` value before retrying. The current error response uses a 60-second value. Limit concurrency across your workers and connections, add jitter to scheduled retries, and avoid retry bursts at the same boundary.
+When an operation returns `429`, wait for its `Retry-After` value (in seconds) before retrying. Limit concurrency across your workers and connections, add jitter to scheduled retries, and avoid retry bursts at the same boundary.
 
 ```http
 HTTP/1.1 429 Too Many Requests
